@@ -2,6 +2,8 @@
 1, 1, 2, -1, 1, -2, ?
 """
 cont=1
+print('-'*20, 'Resultado','-'*20,'\n')
+
 for i in range(1,-2,-2):
     for j in range(1,-2,-2):
         if i<0 and j<0:
@@ -16,3 +18,6 @@ for i in range(1,-2,-2):
                 print(f'{j}, {i}, {-j+i}', end=', ')
         else:
             print(f'{j}, {i}, {j+i}', end=',')
+
+print('\n\n','-'*20, 'Fin','-'*20,'\n')
+
