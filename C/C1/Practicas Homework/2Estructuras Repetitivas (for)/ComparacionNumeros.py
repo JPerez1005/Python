@@ -1,7 +1,7 @@
 """Construya un programa que lea 10 números ingresados por el usuario y que al final, muestre el mayor
 y el menor de todos estos números."""
-NuevoNumMayor=0
-NuevoNumMenor=10000
+NuevoNumMayor=float('-inf')#es la representacion del numero infinito negativo
+NuevoNumMenor=float('inf')#es la representacion del infinito
 for i in range(1,11):
     if i==1:
         Num=int(input(f'{i}.) Digite un Numero: '))
