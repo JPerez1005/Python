@@ -1,4 +1,4 @@
-
+"""Triangulo de numeros"""
 
 for i in range(5,0,-1):
     cont=6
