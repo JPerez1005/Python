@@ -7,7 +7,6 @@ a=0
 b=0
 c=0
 
-
 for i in range(1,4):
     l=int(input(f'Digite el lado {i}: '))
     if i==1:
@@ -27,5 +26,4 @@ print('El area del triangulo es: ',area)
 
 if p>a and p>b and p>c:
     print('Cumple con las condiciones para ser un triangulo')
-
 print('-'*5,'Fin','-'*5,'\n')

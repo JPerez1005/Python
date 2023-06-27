@@ -11,7 +11,7 @@ for i in range(1,num):
     if num%i==0:
         per=per+i
         print(per)
-    
+
 print('-'*5,'Resultado','-'*5,'\n')
 if per==num:
     print('El numero es perfecto')
