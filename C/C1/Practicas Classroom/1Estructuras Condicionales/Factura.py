@@ -14,6 +14,8 @@ preciobruto=compra+IVA*narticulos
 if preciobruto>1000:
     preciobruto=preciobruto*0.05
     print('Se hizo un descuento del 5%')
+
+
 print('-'*5,'Factura','-'*5,'\n')
 print('El valor del Producto es: ',compra)
 print('Cantidad de articulos: ',narticulos)
