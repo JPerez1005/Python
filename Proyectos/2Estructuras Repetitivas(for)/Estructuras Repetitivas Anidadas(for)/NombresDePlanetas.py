@@ -21,7 +21,11 @@ for c1 in Consonantes:
                     for v3 in Vocales:
                         if c1!=c2 and c1!=c3 and c2!=c3 and \
                             v1!=v2 and v1!=v3 and v2!=v3:
-                             Nombres=c1+v1+c2+v2+c3+v3
-                             Nombres.append(Nombres)
+                             Nombre=c1+v1+c2+v2+c3+v3
+                             Nombres.append(Nombre)
 
-print('')
+print('Cantidad de nombres: {}'.format(len(Nombres)))
+
+for i in range(1,11):
+    Planeta=random.choice(Nombres)
+    print('Planeta {} : {}'.format(i,Planeta))
