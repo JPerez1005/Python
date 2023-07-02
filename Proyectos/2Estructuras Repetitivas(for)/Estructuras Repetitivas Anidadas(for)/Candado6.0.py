@@ -12,8 +12,6 @@ numeros = list(range(10))
 
 inicio = time()
 
-for c1 in abc or abc or numeros:
-    if c1 
 
 final = time()
 res = final-inicio
