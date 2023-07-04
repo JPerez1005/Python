@@ -12,5 +12,6 @@ while Inicio<=Final:
         Suma=Suma+Inicio
     Inicio+=1
 
-print(f'La suma de todos lo numeros entre: {Inicio1} y {Final}')
+print(f'La suma de todos lo numeros entre: \
+      {Inicio1} y {Final}')
 print(f'es: {Suma}')
