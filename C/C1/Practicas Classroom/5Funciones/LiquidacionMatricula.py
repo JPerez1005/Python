@@ -50,9 +50,9 @@ def LeerString(msg):
             print('Error!. Ingrese un numero entero valido.', e.message)#nos retorna el error
 
 def LeerProgramaAcademico():
-    TS='Técnicoen Sistemas'
-    TDV='Técnicoen Desarrollo de videojuegos'
-    TAD='Técnicoen Animación Digital'
+    TS='Técnico en Sistemas'
+    TDV='Técnico en Desarrollo de videojuegos'
+    TAD='Técnico en Animación Digital'
     print('*****Ingrese un programa Academico*****')
     print('1: ', TS)
     print('2: ', TDV)
@@ -112,7 +112,13 @@ def LeerIndBeca():
 def CalMatricula(ProgAcad, Beca):
     B=Beca/100
     BT=B*ProgAcad
-    Operacion=ProgAcad-BT
+    Operacion=int(ProgAcad-BT)
+    numero_formateado = '{:,}'.format(Operacion)
+    # Reemplazar las comas por puntos
+    numero_formateado = numero_formateado.replace(',', '.')
+    # Devolver la cadena formateada
+    print(numero_formateado)
+    return numero_formateado
 
 
 cod =LeerInt('Ingrese el codigo del estudiante: ')
@@ -120,7 +126,7 @@ nom=LeerString('Ingrese el nombre del estudiante: ')
 ProgAcad=LeerProgramaAcademico()
 Beca=LeerIndBeca()
 
-ValNetoPagar=CalMatricula(ProgAcad, Beca)
+ValNetoPagar=CalMatricula(ProgAcad,Beca)
 
 print('Estudiante: ',nom)
-print(f'El valor neto a pagar es:  f{ValNetoPagar:,.of}')#La coma separa por miles
+print(f'El valor neto a pagar es: {ValNetoPagar}')#La coma separa por miles
