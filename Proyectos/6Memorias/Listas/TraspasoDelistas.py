@@ -24,5 +24,6 @@ grupos2=[]
 
 for i in range(len(numeros)):
     grupos2.append([numeros[i],letras[i]])
+    #repaso de posiciones
 
 print(grupos2)
