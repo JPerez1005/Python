@@ -9,7 +9,7 @@ empleados = {
     8: {"id": 8, "nombre": "Sofía", "horas_trabajadas": 41, "valor_hora": 9800},
     9: {"id": 9, "nombre": "David", "horas_trabajadas": 37, "valor_hora": 10800},
     10: {"id": 10, "nombre": "Julia", "horas_trabajadas": 44, "valor_hora": 9300},
-    # Más empleados...ca
+    # Más Empleados
 }
 
 # Tamaño de la página
