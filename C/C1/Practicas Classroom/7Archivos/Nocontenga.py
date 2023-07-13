@@ -1,5 +1,3 @@
-import io
-
 fd=open('C/C1/Practicas Classroom/7Archivos/mbox-short.txt',
         'r', encoding='utf-8')
 for linea in fd:#recorre cada una de las lineas
@@ -11,4 +9,3 @@ for linea in fd:#recorre cada una de las lineas
     print(line,'Enviado [OK]')
         
 fd.close()
-
