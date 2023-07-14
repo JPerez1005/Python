@@ -183,10 +183,6 @@ def ArticulosVendidos():
     print("La cantidad total de artículos vendidos es:", cant)
 
 
-
-
-
-
 def menu():
     crear_archivo_json()
     verificar_archivo_vacio()
