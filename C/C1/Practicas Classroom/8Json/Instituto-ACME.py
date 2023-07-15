@@ -63,10 +63,33 @@ def Estudiantes(ruta):
     while True:
         if elegirop==1:
             print('Agregar estudiantes: ')
+            ide=input('Digite el id del estudiante: ')
+            if ide.isdigit()==False:
+                print('No digite letras en el id...')
+                continue
+            nombre=input('Digite nombre de estudiante: ')
+            if nombre.isalpha()==False:
+                print('No digite numeros en el nombre...')
+                continue
+            sex=input('Digite el sexo del estudiante(m/f): ')
+            if sex.lower()!='m':
+                if  sex.lower()!='f':
+                    print('tiene que digitar (m) o (f)...')
+                    continue
+            classroom=input('Digite el grado del estudiante: ')
             with open(ruta, "r") as archivo:
                 contenido = json.load(archivo)
-                grado = {
-                    }
+            grado ={
+                'id':ide,
+                'nombre':nombre,
+                'sexo':sex,
+                'grado':classroom
+            }
+            contenido[classroom]=grado
+            with open(ruta,'w') as archivo:
+                json.dump(contenido, archivo)
+            
+            print('Estudiante registrado correctamente...')
         elif elegirop==2:
             print('Modificar Estudiantes')
         elif elegirop==3:
