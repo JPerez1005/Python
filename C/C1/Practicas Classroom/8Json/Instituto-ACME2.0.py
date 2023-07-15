@@ -203,7 +203,7 @@ def BuscarEstudiante():
             print('Grupo : {:8}'.format(grupo[id_estudiante]['grupo']))
 
 
-def Estudiantes(ruta):
+def Estudiantes():
     
     while True:
         print('\n','-'*20)
@@ -230,8 +230,46 @@ def Estudiantes(ruta):
             print('Saliendo...')
             return
 
-def Notas(ruta):
+#--------------------------------------------------------------------------------------
+#AGREGANDO NOTAS
+
+def AgregarNotas():
     pass
+
+def AgregarNota():
+    pass
+
+def ModificarNota():
+    pass
+
+def VerNotas():
+    pass
+
+def Notas(ruta):
+    while True:
+        print('\n','-'*20)
+        print('GESTION DE NOTAS')
+        print('-'*20,'\n')
+        print("1. Agregar Notas de Estudiantes faltantes")
+        print("2. Agregar Notas de algún Estudiantes")
+        print("3. Modificar Notas de algún Estudiante")
+        print("4. Ver Notas")
+        print('5. Salir')
+        print(">> Escoja una opcion (1-5)?")
+        elegirop = leerInt("\n>> Opcion (1 a 5)?: ")
+        if elegirop < 1 or elegirop > 5:
+            msgError("Ingrese una opcion valida")
+        if elegirop==1:
+            AgregarNotas()
+        elif elegirop==2:
+            AgregarNota()
+        elif elegirop==3:
+            ModificarNota()
+        elif elegirop==4:
+            VerNotas()
+        elif elegirop==5:
+            print('Saliendo...')
+            return
 
 def Reportes(ruta):
     pass
