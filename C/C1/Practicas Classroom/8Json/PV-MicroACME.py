@@ -112,21 +112,25 @@ def RealizarCompra():
                 
                 if producto['Tipo de Iva'] == 0:
                     print('Exento de IVA')
+                    ValorIva=0
                     CompraArt = int(cant) * int(producto['valor'])
                 elif producto['Tipo de Iva'] == 0.05:
                     print('Tiene un IVA del 5%')
-                    CompraArt = float(cant) * float(producto['valor']) * 0.05
+                    ValorIva=float(producto['valor']) * 0.05
+                    CompraArt = float(cant) * float(producto['valor']) + ValorIva
                 elif producto['Tipo de Iva'] == 0.19:
                     print('Tiene un IVA del 19%')
-                    CompraArt = float(cant) * float(producto['valor']) * 0.19
+                    ValorIva=float(producto['valor']) * 0.19
+                    CompraArt = float(cant) * float(producto['valor']) + ValorIva
                 
                 ValorTotal = ValorTotal + int(CompraArt)
-                
+                ValorTotalIva=ValorTotalIva+ValorIva
                 producto_comprado = {
                     'Código del Producto': codigo,
                     'Valor del producto': producto['valor'],
                     'Cantidad comprada': cant,
-                    'Tipo Iva': producto['Tipo de Iva']
+                    'Tipo Iva': producto['Tipo de Iva'],
+                    'Valor Iva':ValorIva
                 }
                 
                 productos_comprados.append(producto_comprado)
