@@ -24,6 +24,7 @@ def CargarInfo(ruta,dic):
         try:
             json.load(archivo,dic)
         except Exception as e:
+            print('Archivo Creado')
             dic = {}
     
     print(dic)
@@ -62,6 +63,10 @@ def Estudiantes(ruta):
     while True:
         if elegirop==1:
             print('Agregar estudiantes: ')
+            with open(ruta, "r") as archivo:
+                contenido = json.load(archivo)
+                grado = {
+                    }
         elif elegirop==2:
             print('Modificar Estudiantes')
         elif elegirop==3:
