@@ -60,7 +60,6 @@ def Estudiantes(ruta):
         msgError("Ingrese una opcion valida")
     
     while True:
-        op=Menu()
         if elegirop==1:
             print('Agregar estudiantes: ')
         elif elegirop==2:
