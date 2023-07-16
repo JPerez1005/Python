@@ -94,11 +94,11 @@ def UsuarioExistente(id, contenido):
 
 def agregar_estudiante():
     print('Agregar estudiantes: ')
+    contenido=AbrirArchivo()
     NumRegistros=leerInt('Cuantos estudiantes desea agregar?: ')
     for i in range(1,NumRegistros+1):
         # Abrir el archivo JSON en modo lectura
         classroom=input('Digite el grado del estudiante: ')
-        contenido=AbrirArchivo()
         ide=input('Digite el id del estudiante: ')
         if ide.isdigit()==False:
             print('No digite letras en el id...')
@@ -201,6 +201,8 @@ def BuscarEstudiante():
             print('ID    : {:8}'.format(grupo[id_estudiante]['id']))
             print('Sexo  : {:8}'.format(grupo[id_estudiante]['sexo']))
             print('Grupo : {:8}'.format(grupo[id_estudiante]['grupo']))
+        else:
+            print('Ese estudiante no está registrado...')
 
 
 def Estudiantes():
@@ -234,27 +236,121 @@ def Estudiantes():
 #AGREGANDO NOTAS
 
 def AgregarNotas():
-    pass
+    g=input('Digite el grupo donde quiere ingresar las notas: ')
+    contenido=AbrirArchivo()
+    if g in contenido:
+        print('El grupo si está registrado')
+        # Obtener el diccionario de estudiantes del grupo
+        estudiantes = contenido[g]
+        nombres=sorted([estudiante['nombre'] for estudiante in estudiantes.values()])
+        
+        # Agregar el campo de notas a cada estudiante
+        for estudiante in estudiantes.values():
+            estudiante['notas'] = {}
+        
+        for nombre in nombres:#de forma alfabetica por nombres    
+            for estudiante in estudiantes.values():
+                if estudiante['nombre'] == nombre:#para que no se repitan los nombres
+                    id_estudiante = estudiante['id']
+                    print('{:2} {:4}'.format(id_estudiante, nombre))
+                    Bandera=True
+                    while Bandera==True:
+                        try:
+                            nota1=float(input('Digite la nota 1: '))
+                            nota2=float(input('Digite la nota 2: '))
+                            nota3=float(input('Digite la nota 3: '))
+                            if nota1 < 1 or nota1 > 5 or nota2 < 1 or nota2 > 5 or nota3 < 1 or nota3 > 5:
+                                raise Exception()
+                            prom=(nota1+nota2+nota3)//3
+                        except ValueError:
+                            print('No digite letras...')
+                            continue
+                        except Exception as error:
+                            print('Las notas deben estar en el rango de 1 a 5')
+                            continue
+                        # Guardar las notas en el diccionario de notas del estudiante
+                        estudiante['notas'] = {
+                            'nota1': nota1,
+                            'nota2': nota2,
+                            'nota3': nota3,
+                            'promedio': prom
+                        }
+                        #contenido=contenido anterior
+                        #g=Donde se guardará
+                        #estudiantes=todos los nuevos estudiantes
+                        Actualizar(contenido, g, estudiantes)
+                        print("Notas agregadas correctamente.")
+                        Bandera=False
+                    break
+    else:
+        print('Ese grupo no existe')
 
 def AgregarNota():
-    pass
+    id_estudiante = input('Digite el ID del estudiante que desee\nagregar o modificar notas: ')
+    contenido = AbrirArchivo()#tambien cargan las variables de los diccionarios
+    
+    for grupo in contenido.values():
+        if id_estudiante in grupo:
+            print('\n','-'*30)
+            print('Nombre: {:8}'.format(grupo[id_estudiante]['nombre']))
+            print('ID    : {:8}'.format(grupo[id_estudiante]['id']))
+            estudiantes = contenido[grupo[id_estudiante]['grupo']]
+            for estudiante in estudiantes.values():
+                estudiante['notas'] = {}#agregamos el campo notas
+            Bandera=True
+            existencia=True
+            while Bandera==True:
+                try:
+                    nota1=float(input('Digite la nota 1: '))
+                    nota2=float(input('Digite la nota 2: '))
+                    nota3=float(input('Digite la nota 3: '))
+                    if nota1 < 1 or nota1 > 5 or nota2 < 1 or nota2 > 5 or nota3 < 1 or nota3 > 5:
+                        raise Exception()
+                    prom=(nota1+nota2+nota3)//3
+                except ValueError:
+                    print('No digite letras...')
+                    continue
+                except Exception as error:
+                    print('Las notas deben estar en el rango de 1 a 5')
+                    continue
+                # Guardar las notas en el diccionario de notas del estudiante
+                estudiante['notas'] = {
+                    'nota1': nota1,
+                    'nota2': nota2,
+                    'nota3': nota3,
+                    'promedio': prom
+                }
+                #          cont anterior,   donde se implantará,   nuevo contenido
+                Actualizar(contenido, grupo[id_estudiante]['grupo'], estudiante)
+                print("Notas agregadas correctamente.")
+                Bandera=False
+        else:
+            existencia=False
 
-def ModificarNota():
-    pass
+    if existencia==False:
+        print('Ese estudiante no está registrado...')
 
 def VerNotas():
-    pass
+    contenido=AbrirArchivo()
+    
+    for grupo, estudiantes in contenido.items():
+        for id_estudiante, estudiante in estudiantes.items():
+            if id_estudiante != 'notas':
+                if isinstance(estudiante, dict):
+                    print('{} {}'.format(estudiante.get('id', ''), estudiante.get('nombre', '')))
 
-def Notas(ruta):
+
+
+
+def Notas():
     while True:
         print('\n','-'*20)
         print('GESTION DE NOTAS')
         print('-'*20,'\n')
-        print("1. Agregar Notas de Estudiantes faltantes")
+        print("1. Agregar Notas de Estudiantes")
         print("2. Agregar Notas de algún Estudiantes")
-        print("3. Modificar Notas de algún Estudiante")
-        print("4. Ver Notas")
-        print('5. Salir')
+        print("3. Ver Notas")
+        print("4. Salir")
         print(">> Escoja una opcion (1-5)?")
         elegirop = leerInt("\n>> Opcion (1 a 5)?: ")
         if elegirop < 1 or elegirop > 5:
@@ -264,10 +360,8 @@ def Notas(ruta):
         elif elegirop==2:
             AgregarNota()
         elif elegirop==3:
-            ModificarNota()
-        elif elegirop==4:
             VerNotas()
-        elif elegirop==5:
+        elif elegirop==4:
             print('Saliendo...')
             return
 
@@ -279,9 +373,9 @@ def Reportes(ruta):
 while True:
     op=Menu()
     if op==1:
-        Estudiantes(ruta)
+        Estudiantes()
     elif op==2:
-        Notas(ruta)
+        Notas()
     elif op==3:
         Reportes(ruta)
     elif op==4:

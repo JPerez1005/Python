@@ -1,1 +1,41 @@
-{"a1": {}, "1": {}}
+{
+  "a2": {
+    "1": {
+      "id": "1",
+      "nombre": "daniela",
+      "sexo": "f",
+      "grupo": "a2",
+      "notas": { "nota1": 4.0, "nota2": 3.0, "nota3": 3.0, "promedio": 3.0 }
+    },
+    "2": {
+      "id": "2",
+      "nombre": "camilo",
+      "sexo": "m",
+      "grupo": "a2",
+      "notas": { "nota1": 3.0, "nota2": 3.0, "nota3": 3.0, "promedio": 3.0 }
+    },
+    "4": {
+      "id": "4",
+      "nombre": "marcela",
+      "sexo": "f",
+      "grupo": "a2",
+      "notas": { "nota1": 4.0, "nota2": 4.0, "nota3": 4.0, "promedio": 4.0 }
+    }
+  },
+  "a1": {
+    "3": {
+      "id": "3",
+      "nombre": "santiago",
+      "sexo": "m",
+      "grupo": "a1",
+      "notas": { "nota1": 3.0, "nota2": 4.0, "nota3": 5.0, "promedio": 4.0 }
+    }
+  },
+  "a3": {
+    "id": "5",
+    "nombre": "kyty",
+    "sexo": "f",
+    "grupo": "a3",
+    "notas": { "nota1": 3.0, "nota2": 3.0, "nota3": 3.0, "promedio": 3.0 }
+  }
+}
