@@ -1,5 +1,4 @@
 # INSTITUO EDUCATIVO ACME - Registro e Informe de Notas
-
 import json
 import os
 
