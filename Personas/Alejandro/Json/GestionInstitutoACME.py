@@ -48,7 +48,6 @@ def MenuStd(Ruta, DataStd):
             elif Opc == 3:
                 clear()
                 SearchStudent(DataStd)
-                UpdateFile(Ruta, DataStd)
             elif Opc == 4:
                 clear()
                 DataStd = DeleteStudent(DataStd)
@@ -195,15 +194,20 @@ def CalificarStudent(DataStd):
     if Curso == "0":
         return DataStd
     Values = []
-    Values.extend(list(DataStd[Curso].values()))
-    Values.sort(key=ReturnName)
-    for i in range(0, len(Values)):
-        print(Values[i]["Name"])
-        Notas = LeerNotas()
-        for Id in DataStd[Curso].keys():
-            if Values[i]["Name"] == DataStd[Curso][Id]["Name"]:
-                DataStd[Curso][Id]["Notas"] = Notas
-                DataStd[Curso][Id]["Promedio"] = CalcularPromedio(Id, Curso, DataStd)
+    if Curso in DataStd.keys():
+        print('Curso existe')
+        Values.extend(list(DataStd[Curso].values()))
+        Values.sort(key=ReturnName)#ordenamiento
+        for i in range(0, len(Values)):
+            print(Values[i]["Name"])
+            Notas = LeerNotas()
+            for Id in DataStd[Curso].keys():
+                if Values[i]["Name"] == DataStd[Curso][Id]["Name"]:
+                    DataStd[Curso][Id]["Notas"] = Notas
+                    DataStd[Curso][Id]["Promedio"] = CalcularPromedio(Id, Curso, DataStd)
+    else:
+        print('Curso no existente')
+        return
     return DataStd
 
 #Función para Recibir las notas de un Estudiante
@@ -245,13 +249,15 @@ def PromEstCurso(DataStd):
     Curso = LeerString("Ingrese Curso a Calificar: ")
     Values = []
     Values.extend(list(DataStd[Curso].values()))
-    Values.sort(key=ReturnName)
+    Values.sort(key=ReturnName)#los valores del nombre es lo que ordena dependiendo del nombre
     print("|{:^50}|".format("PROMEDIOS CURSO: "+ Curso))
+    #         ^=centrado
     print("|{:^40}|{:>10}|".format("ESTUDIANTE", "PROMEDIO"))
     print("+", "-" * 38, "+", "-" * 8, "+")
     for i in range(0, len(Values)):
         for Id in DataStd[Curso].keys():
             if Values[i]["Name"] == DataStd[Curso][Id]["Name"]:
+                #                   1f=un decimal
                 print("|{:<40}|{:>10.1f}|".format(Values[i]["Name"], DataStd[Curso][Id]["Promedio"]))
                 print("+", "-" * 38, "+", "-" * 8, "+")
     MsgNotify("FIN DEL CURSO")
@@ -280,7 +286,7 @@ def ExcelenciaCurso(DataStd):
 #Función para Mostrar Tabla de Excelencia de toda la Institución, 5 mejores promedios de todo ACME, en orden descendente
 def ExcelenciaInst(DataStd):
     print("\n\f CUADRO DE HONOR DE LA INSTITUCIÓN ACME")
-    Values = []
+    Values = []#creeacion lista
     for Curso in DataStd.keys():
         Values.extend(list(DataStd[Curso].values()))
     Values.sort(key=ReturnProm, reverse = True)
@@ -290,11 +296,15 @@ def ExcelenciaInst(DataStd):
     print("+", "-" * 4, "+", "-" * 38, "+", "-" * 8, "+", "-" * 10, "+")
     for i in range(0, len(Values)):
         if Puesto == 6:
-            break
-        for Curso in DataStd.keys():
-            for Id in DataStd[Curso].keys():
-                if Values[i]["Name"] == DataStd[Curso][Id]["Name"]:
+            break#hubo un recorte
+        for Curso in DataStd.keys():#repaso por diccionario general
+            for Id in DataStd[Curso].keys():#repaso 
+                if Values[i]['Name'] in DataStd[Curso][Id].values():
                     print("|{:^6}|{:<40}|{:>10.1f}|{:>12}|".format(Puesto, Values[i]["Name"], DataStd[Curso][Id]["Promedio"], Curso))
+                    
+                # nombre  i=puesto      contenido,grupo,id,nombre              
+                '''if Values[i]["Name"] == DataStd[Curso][Id]["Name"]:
+                    print("|{:^6}|{:<40}|{:>10.1f}|{:>12}|".format(Puesto, Values[i]["Name"], DataStd[Curso][Id]["Promedio"], Curso))'''
         Puesto += 1
     MsgNotify("")
     return

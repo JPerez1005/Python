@@ -104,7 +104,7 @@ def UsuarioExistente(id, contenido):
 def agregar_estudiante():
     clear()
     print('Agregar estudiantes: ')
-    contenido=AbrirArchivo()
+    contenido=AbrirArchivo()#cargar datos existentes
     NumRegistros=leerInt('Cuantos estudiantes desea agregar?: ')
     for i in range(1,NumRegistros+1):
         # Abrir el archivo JSON en modo lectura
