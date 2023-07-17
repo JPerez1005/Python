@@ -1,0 +1,12 @@
+[
+  {
+    "codigo": "1",
+    "nombre": "naranja",
+    "valor_unitario": 200.0,
+    "cantidad": 3,
+    "valor_producto": 600.0,
+    "valor_iva": 12.0,
+    "valor_total": 612.0,
+    "cliente": { "id": "1", "nombre": "julian", "edad": "21" }
+  }
+]

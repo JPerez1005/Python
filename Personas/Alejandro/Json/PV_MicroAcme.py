@@ -10,6 +10,70 @@
 
 import json
 from datetime import date
+#Creación de Diccionarios para almacenar en Memoria
+Sales = {}
+Products = {}
+#Fecha del Día para crear Archivo de ventas
+Dia = date.today()
+#Cargar Archivo de Ventas del día
+try:
+    SalesFile = open(f"{Dia}.json", "r")
+    Sales = json.load(SalesFile)
+    SalesFile.close()
+except FileNotFoundError:
+    SalesFile = open(f"{Dia}.json", "w")
+    SalesFile.close()
+#Cargar Archivo de Productos
+try:
+    with open("Products.json", "r") as file:
+        products = json.load(file)
+except FileNotFoundError:
+    ProductsFile = open("Products.json", "w")
+    ProductsFile.close()
+
+#******************************** FUNCIONES VALIDACIÓN Y NOTIFICACIÓN ********************************
+#Función Mensaje Error -> Se utiliza para imprimir diferentes Notificaciones durante el proceso.
+def MsgNotify(msg):
+    print("\n NOTIFY!", msg)
+    input(" -> Presione cualquier letra para regresar al Menú")
+    print("=" * 45)
+
+#Función Validar Entero -> Los datos numericos que se requieren deben ser todos Positivos y mayores que 0
+def LeerEntero(msg):
+    while True:
+        try:
+            n = int(input(msg))
+            if n < 0:
+                MsgNotify("Error! Dato no valido")
+                continue
+            return n
+        except ValueError:
+            print("Error! Ingrese un numero de codigo valido")
+
+
+#Función Leer String -> Evita que se ingresen Nombres Vacios
+def LeerString(msg):
+    while True:
+        try:
+            Name = input(msg)
+            Name = Name.strip()
+            if Name == "":
+                MsgNotify("Error! Ingrese un nombre no Vacio")
+                continue
+            return Name
+        except Exception as e:
+            print("Error al ingresar el nombre.", e.message)
+
+#Función para Actualizar Archivo de Productos
+def UpdateProducts(Dicc):
+    with open("Products.json", "w") as ProductsFile:
+        json.dump(Dicc, ProductsFile)
+
+#Función para Actualizar Archivo de Ventas
+def UpdateSales(Dicc):
+    Dia = date.today()
+    with open(f"{Dia}.json", "w") as ProductsFile:
+        json.dump(Dicc, ProductsFile)
 #********************************** FUNCION MENÚ PRINCIPAL ************************************
 #Función Mostrar Menú Principal, con los submenús
 def MainMenu():
@@ -32,28 +96,7 @@ def MainMenu():
             print("Error! Ingrese un numero entero valido")
 
 #******************************* FUNCIONES APARTADO DE VENTAS ********************************
-#Función Mostrar SubMenú de Ventas
-def SalesMenu(Sales, Products):
-    while True:
-        print("\n","=" * 40)
-        print("*** SUBMENÚ DE VENTAS *** ")
-        print("1-   Nueva Venta")
-        print("2-   Modificar Venta")
-        print("3-   Eliminar Venta")
-        print("4-   Regresar a Menú Principal")
-        try:
-            Opc = int(input("\t>>Escoja una opción (1-4)? "))
-            if Opc == 1:
-                Sales = NuevaVenta(Sales, Products)
-            if Opc == 2:
-                Sales = ModificarVenta(Sales, Products)   
-            if Opc == 3:
-                Sales = EliminarVenta(Sales)
-            if Opc == 4:
-                UpdateProducts(Products)
-                return Sales
-        except ValueError:
-            print("Error! Ingrese un numero entero valido")
+
 
 #Función para Registrar nueva venta a cliente
 def NuevaVenta(Sales, Products):
@@ -137,6 +180,28 @@ def TirillaPago(IDCliente, Sales, Products):
     print()
     print(f"TOTAL A PAGAR: ", Sales[IDCliente]["TotalPagar"])
 
+#Función Mostrar SubMenú de Ventas
+def SalesMenu(Sales, Products):
+    while True:
+        print("\n","=" * 40)
+        print("*** SUBMENÚ DE VENTAS *** ")
+        print("1-   Nueva Venta")
+        print("2-   Modificar Venta")
+        print("3-   Eliminar Venta")
+        print("4-   Regresar a Menú Principal")
+        try:
+            Opc = int(input("\t>>Escoja una opción (1-4)? "))
+            if Opc == 1:
+                Sales = NuevaVenta(Sales, Products)
+            if Opc == 2:
+                Sales = ModificarVenta(Sales, Products)   
+            if Opc == 3:
+                Sales = EliminarVenta(Sales)
+            if Opc == 4:
+                UpdateProducts(Products)
+                return Sales
+        except ValueError:
+            print("Error! Ingrese un numero entero valido")
 #******************************** FUNCIONES APARTADO DE PRODUCTOS ********************************
 #Función Mostrar SubMenú de Productos
 def ProductsMenu(Products):
@@ -263,72 +328,10 @@ def DetailsACME(Sales):
     print("|{:<10}|{:>15,}|{:>15,}|{:>15,}|".format(TotalCant, TotalNoIVA, TotalIVA, TotalConIVA))
     print("+----------+---------------+---------------+---------------+")
 
-#******************************** FUNCIONES VALIDACIÓN Y NOTIFICACIÓN ********************************
-#Función Mensaje Error -> Se utiliza para imprimir diferentes Notificaciones durante el proceso.
-def MsgNotify(msg):
-    print("\n NOTIFY!", msg)
-    input(" -> Presione cualquier letra para regresar al Menú")
-    print("=" * 45)
 
-#Función Validar Entero -> Los datos numericos que se requieren deben ser todos Positivos y mayores que 0
-def LeerEntero(msg):
-    while True:
-        try:
-            n = int(input(msg))
-            if n < 0:
-                MsgNotify("Error! Dato no valido")
-                continue
-            return n
-        except ValueError:
-            print("Error! Ingrese un numero de codigo valido")
-
-
-#Función Leer String -> Evita que se ingresen Nombres Vacios
-def LeerString(msg):
-    while True:
-        try:
-            Name = input(msg)
-            Name = Name.strip()
-            if Name == "":
-                MsgNotify("Error! Ingrese un nombre no Vacio")
-                continue
-            return Name
-        except Exception as e:
-            print("Error al ingresar el nombre.", e.message)
-
-#Función para Actualizar Archivo de Productos
-def UpdateProducts(Dicc):
-    with open("Micromercado_ACME\Products.json", "w") as ProductsFile:
-        json.dump(Dicc, ProductsFile)
-
-#Función para Actualizar Archivo de Ventas
-def UpdateSales(Dicc):
-    Dia = date.today()
-    with open(f"Micromercado_ACME\{Dia}.json", "w") as ProductsFile:
-        json.dump(Dicc, ProductsFile)
 
 #******************************** MAIN CODE ********************************
-#Creación de Diccionarios para almacenar en Memoria
-Sales = {}
-Products = {}
-#Fecha del Día para crear Archivo de ventas
-Dia = date.today()
-#Cargar Archivo de Ventas del día
-try:
-    SalesFile = open(f"Micromercado_ACME\{Dia}.json", "r")
-    Sales = json.load(SalesFile)
-    SalesFile.close()
-except FileNotFoundError:
-    SalesFile = open(f"Micromercado_ACME\{Dia}.json", "w")
-    SalesFile.close()
-#Cargar Archivo de Productos
-try:
-    ProductsFile = open("Micromercado_ACME\Products.json", "r")
-    Products = json.load(ProductsFile)
-    ProductsFile.close()
-except FileNotFoundError:
-    ProductsFile = open("Micromercado_ACME\Products.json", "w")
-    ProductsFile.close()
+
 
 #Enseñar Menú Principal
 while True:
