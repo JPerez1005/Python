@@ -20,7 +20,6 @@ def Actualizar(NombreArchivo, contenido):
 # Nombre del archivo para almacenar los datos
 ArchivoProductos = 'productos.json'
 ArchivoClientes = 'clientes.json'
-ArchivoDia = f'{Dia}.json'
 # Abrir el archivo y cargar los productos existentes
 productos = CargarDatos(ArchivoProductos)
 
@@ -28,22 +27,6 @@ productos = CargarDatos(ArchivoProductos)
 clientes = CargarDatos(ArchivoClientes)
 
 # Abrir compras de los clientes del día
-dia= CargarDatos(ArchivoDia)
-
-'''def Traspaso():
-    try:
-        # Abrir el archivo de origen en modo lectura
-        with open(ArchivoClientes, "r") as archivo_origen:
-            # Cargar los datos del archivo
-            datos_origen = json.load(archivo_origen)
-        for cliente in datos_origen.values():
-            cliente['compras'] = []
-        with open(ArchivoDia, "w") as archivo_destino:
-            json.dump(datos_origen, archivo_destino)
-    except FileNotFoundError:
-        contenido = []
-    return contenido'''
-
 def AgregarCliente():
     print('-'*5,'Este es el registro de clientes','-'*5)
     id_cliente = input('ID del cliente: ')
@@ -57,7 +40,6 @@ def AgregarCliente():
         'compras':[]
     }
     clientes.append(cliente)
-    dia.append(cliente)
     print('Cliente agregado correctamente.')
 
 def IngresarProducto():
@@ -90,7 +72,6 @@ def RealizarVenta():
         RealizarVenta()
         return
     '''Traspaso()'''
-    clientedia = next((c for c in dia if c['id'] == id_cliente), None)
     subtotal = 0
     total_iva = 0
     productos_vendidos = []
@@ -195,7 +176,6 @@ def menu():
             # Guardar los productos y clientes en los archivos antes de salir
             Actualizar(ArchivoProductos, productos)
             Actualizar(ArchivoClientes, clientes)
-            Actualizar(ArchivoDia, dia)
             break
         else:
             print('Opción inválida. Por favor, seleccione nuevamente.')
