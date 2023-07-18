@@ -32,7 +32,6 @@ def Actualizar(NombreArchivo, contenido):
         json.dump(contenido, archivo)
 
 Archivo='ClientesBanco.json'#creamos el archivo
-Archivo2='Reportes.txt'
 # Abrir el archivo y cargar los datos existentes
 contenidoBanco = CargarDatos(Archivo)
 #en contenido se muestran los datos de ese archivo
@@ -120,10 +119,17 @@ def AgregarTarjeta():
         else:
             print('No tenemos convenio con esa Tarjeta...')
             return
+        NumTarjeta=0
         NumTarjeta = input('Numero de Tarjeta de credito a registrar: ')
         if NumTarjeta=='':
             print('El numero de la tarjeta no puede ser vacía')
             return
+        for cliente in contenidoBanco:
+            CantidadTarjetas=len(cliente['Tarjetas'])
+            for i in range(0, CantidadTarjetas):
+                if NumTarjeta==cliente['Tarjetas'][i]['Numero de Tarjeta']:
+                    print('esa tarjeta ya existe')
+                    return
         Mes=input('Digite Mes de Validez: ')
         Anio=input('Digite año de validez: ')
         if Mes.isalpha() or Anio.isalpha():
@@ -199,6 +205,12 @@ def ModificarTarjeta():
                 elif TipoTarjeta=='3':
                     TT='Américan Express'
                 NumTarjeta = input('Numero de Tarjeta de credito a registrar: ')
+                for cliente in contenidoBanco:
+                    CantidadTarjetas=len(cliente['Tarjetas'])
+                    for i in range(0, CantidadTarjetas):
+                        if NumTarjeta==cliente['Tarjetas'][i]['Numero de Tarjeta']:
+                            print('esa tarjeta ya existe')
+                            return
                 Mes=input('Digite Mes de Validez: ')
                 Anio=input('Digite año de validez: ')
                 if Mes.isalpha() or Anio.isalpha():
@@ -230,7 +242,7 @@ def ModificarTarjeta():
                     cliente['Tarjetas'][i]['Año y mes de validez'][0]= Anio
                 if CodVer:
                     cliente['Tarjetas'][i]['Codigo de Verificación'] = CodVer
-                print('Estudiante modificado correctamente.')
+                print('Cliente modificado correctamente.')
                 break
             else:
                 existente=False

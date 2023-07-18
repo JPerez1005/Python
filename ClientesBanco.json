@@ -1,1 +1,54 @@
-[{"nombre": "julian", "id": "1", "numero de telefono": "21", "sexo": "m", "Tarjetas": [{"Tipo de Tarjeta": "Am\u00e9rican Express", "Numero de Tarjeta": "235416", "A\u00f1o y mes de validez": ["2087", "05"], "Codigo de Verificaci\u00f3n": 222, "Cedula del cliente": "1"}]}, {"nombre": "camilo", "id": "2", "numero de telefono": "12", "sexo": "m", "Tarjetas": [{"Tipo de Tarjeta": "Visa", "Numero de Tarjeta": "123456", "A\u00f1o y mes de validez": ["2045", "07"], "Codigo de Verificaci\u00f3n": 203, "Cedula del cliente": "2"}]}, {"nombre": "camila", "id": "3", "numero de telefono": "23", "sexo": "f", "Tarjetas": []}, {"nombre": "diana", "id": "4", "numero de telefono": "34", "sexo": "f", "Tarjetas": [{"Tipo de Tarjeta": "Visa", "Numero de Tarjeta": "563214", "A\u00f1o y mes de validez": ["2050", "01"], "Codigo de Verificaci\u00f3n": 122, "Cedula del cliente": "4"}]}]
+[
+  {
+    "nombre": "julian",
+    "id": "1",
+    "numero de telefono": "21",
+    "sexo": "m",
+    "Tarjetas": [
+      {
+        "Tipo de Tarjeta": "Am\u00e9rican Express",
+        "Numero de Tarjeta": "235416",
+        "A\u00f1o y mes de validez": ["2087", "05"],
+        "Codigo de Verificaci\u00f3n": 222,
+        "Cedula del cliente": "1"
+      }
+    ]
+  },
+  {
+    "nombre": "camilo",
+    "id": "2",
+    "numero de telefono": "12",
+    "sexo": "m",
+    "Tarjetas": [
+      {
+        "Tipo de Tarjeta": "Visa",
+        "Numero de Tarjeta": "123456",
+        "A\u00f1o y mes de validez": ["2045", "07"],
+        "Codigo de Verificaci\u00f3n": 203,
+        "Cedula del cliente": "2"
+      }
+    ]
+  },
+  {
+    "nombre": "camila",
+    "id": "3",
+    "numero de telefono": "23",
+    "sexo": "f",
+    "Tarjetas": []
+  },
+  {
+    "nombre": "diana",
+    "id": "4",
+    "numero de telefono": "34",
+    "sexo": "f",
+    "Tarjetas": [
+      {
+        "Tipo de Tarjeta": "Visa",
+        "Numero de Tarjeta": "563214",
+        "A\u00f1o y mes de validez": ["2050", "01"],
+        "Codigo de Verificaci\u00f3n": 122,
+        "Cedula del cliente": "4"
+      }
+    ]
+  }
+]
