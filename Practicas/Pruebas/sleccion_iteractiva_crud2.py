@@ -34,7 +34,7 @@ def agregar_estudiante(estudiantes, screen):
         while True:
             screen.addstr(7 + i, 0, f"Ingrese la nota parcial {i+1}: ")
             screen.refresh()
-            nota = screen.getstr(7 + i, 27, 2).decode(encoding="utf-8")#es como un input
+            nota = screen.getstr(7 + i, 27, 3).decode(encoding="utf-8")#es como un input
             try:
                 nota = float(nota)#La nota se convierte en decimal
                 if 0.0 <= nota <= 5.0:#si la nota esta entre 0 y 5 entonces...
