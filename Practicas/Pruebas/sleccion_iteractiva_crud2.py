@@ -338,6 +338,5 @@ def show_menu(screen):
                 screen.getch()
             elif selection == 4:
                 listar_estudiantes(estudiantes, screen)
-                
 
 curses.wrapper(show_menu)# type: ignore
