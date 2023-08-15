@@ -1,4 +1,4 @@
-import curses
+import curses#se hace la importacion de curses
 
 def integer_validation(entrance, screen, f1, c1):
     curses.echo()# type: ignore | see on screen what is being typed
