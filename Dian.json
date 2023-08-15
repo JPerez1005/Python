@@ -1,0 +1,9 @@
+{
+    "clients": [
+        {
+            "consecutivo": 1,
+            "numero_cuenta": "789456",
+            "saldo": 45000000
+        }
+    ]
+}

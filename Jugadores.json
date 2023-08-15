@@ -1,0 +1,14 @@
+{
+    "jugadores": [
+        {
+            "Nombre": "manolo",
+            "Edad": 432,
+            "Peso": 432.0
+        },
+        {
+            "Nombre": "fds",
+            "Edad": 432,
+            "Peso": 3.0
+        }
+    ]
+}

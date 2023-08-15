@@ -84,8 +84,8 @@ def agregar_empleado(empleados, screen):
     # Capturar el valor de la hora (validar que sea un número)
     screen.addstr(10, 0, "Ingrese el valor de la hora: ")
     screen.refresh()
-    valor_hora = ""
-    entrance=int(integer_validation(valor_hora, screen, 11, 0))# type: ignore
+    valor_hora = integer_validation("", screen, 11, 0)
+    entrance=int(valor_hora)# type: ignore
     while True:
         if 8000<entrance<150000:
             screen.addstr(12, 0, "Valor de Hora Valida.")
@@ -93,7 +93,6 @@ def agregar_empleado(empleados, screen):
         else:
             screen.addstr(12, 0, 'Valor de Hora no Valida')
             screen.refresh()
-    
     # Agregar el empleado al diccionario
     empleados[codigo] = {
         "id": codigo,
@@ -161,6 +160,7 @@ def listar_empleados(empleados, screen):
 
 def calcular_nomina(empleado, valor_hora, salario_minimo):
     horas_trabajadas = float(empleado['horas_trabajadas'])
+    valor_hora = float(empleado['valor_hora'])
     salario_bruto = horas_trabajadas * valor_hora
     if salario_bruto < salario_minimo:
         subsidio_transporte = 102854 # Valor del subsidio de transporte en 2023
