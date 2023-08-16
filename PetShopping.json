@@ -1,0 +1,11 @@
+{
+    "pets": [
+        {
+            "tipo": "fgf",
+            "raza": "fds",
+            "talla": "ggd",
+            "precio": "654",
+            "servicios": []
+        }
+    ]
+}
