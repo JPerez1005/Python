@@ -10,10 +10,10 @@ def cargar_clientes():
                 clientes['vendedores'].append({
                     'Apellido':datos[0],
                     'Id':datos[1],
-                    'ventas':[datos[2],datos[3],datos[4],datos[5],datos[6],datos[7],datos[8]]
+                    'ventas':[int(x) for x in linea[2:]]
                 })
-                with open('ventas_de_la_compania.json', 'w') as archivo:
-                    json.dump(clientes, archivo, indent=4)
+            with open('ventas_de_la_compania.json', 'w') as archivo:
+                json.dump(clientes, archivo, indent=4)
     except FileNotFoundError:#(es la primera vez que se ejecuta el programa o el archivo no está presente).
         pass
     return clientes
