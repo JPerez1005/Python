@@ -176,6 +176,47 @@ def show_for_types(my_dictionary, screen):
         screen.refresh()
         screen.getch()
 
+def type(screen):
+    screen.clear()
+    screen.refresh()
+    screen.addstr(1, 0, "Ingrese el tipo de mascota: ")
+    tipo = string_validation("", screen, 2, 0)
+    return tipo
+
+def race(screen):
+    screen.clear()
+    screen.refresh()
+    screen.addstr(3, 0, "Ingrese la raza de la mascota: ")
+    raza = string_validation("", screen, 4, 0)
+    return raza
+
+def size(screen):
+    screen.clear()
+    screen.refresh()
+    screen.addstr(5, 0, "Ingrese la talla de la mascota: (1.pequeño) (2.mediano) (3.grande)")
+    talla = int(integer_validation("", screen, 6, 0))
+    if talla==1:
+        talla='pequeño'
+    elif talla==2:
+        talla='mediano'
+    elif talla==3:
+        talla='grande'
+    else:
+        screen.addstr(0, 0, "Opción inexistente...")
+    return size
+
+def price(screen):
+    screen.clear()
+    screen.refresh()
+    screen.addstr(7, 0, "Ingrese el precio de la mascota: ")
+    precio = int(integer_validation("", screen, 8, 0))
+    return precio
+
+def Services(screen):
+    screen.clear()
+    screen.refresh()
+    pass
+
 def modify_pet(my_dictionary, screen):
     screen.clear()
     screen.refresh()
@@ -191,15 +232,75 @@ def modify_pet(my_dictionary, screen):
     if 0 <= indice < len(my_dictionary['pets']):
         pet = my_dictionary['pets'][indice]
         
-        # Aquí puedes implementar la lógica para modificar los atributos de la mascota
-        # Puedes usar funciones como string_validation e integer_validation para capturar nuevos valores
         
-        # Luego, actualiza el diccionario con los nuevos valores
+        curses.start_color()# type: ignore
+        curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_CYAN)# type: ignore
+        
+        #WE CAN CHOOSE SOME OPTION WITH THE SELECTOR---------------------------------
+        options = ['1.) change type.', '2.) change race.','3.) change size.','4.) change price.','5.) change services', 'Exit.']
+        selection = 0 #the selector acts as a position in the list, position=0
+        
+        while True:
+            #WE CAN CLEAR AND UPDATE THE SCREEN------------------------------------------
+            screen.clear()
+            screen.refresh()
+            screen.addstr(0, 0, 'My Program - Menú', curses.A_BOLD)# type: ignore
+            screen.addstr(3, 4, "+" + "-" * 54 + "+")
+            screen.addstr(4, 4, "|{:^10}|{:^10}|{:^10}|{:^21}|".format("TIPO", "RAZA", "TALLA", "PRECIO"))
+            screen.addstr(5, 4, "+" + "-" * 54 + "+")
+            screen.addstr(6, 4, "|{:<10}|{:<10}|{:<10}|{:<21}|".format(pet['tipo'], pet['raza'], pet['talla'], pet['precio']))
+            services = ", ".join(pet['servicios'])
+            screen.addstr(7, 4, "|{:<10}|{:<43}|".format("SERVICIOS", services))
+            screen.addstr(8, 4, "+" + "-" * 54 + "+")
+            
+            
+            for i, option in enumerate(options):
+                if i == selection:
+                    screen.addstr(i+12, 5, option, curses.color_pair(1))# type: ignore
+                else:
+                    screen.addstr(i+12, 5, option)
+            
+            key = screen.getch()
+            
+            if key == curses.KEY_UP and selection > 0:# type: ignore
+                selection -= 1
+            elif key == curses.KEY_DOWN and selection < len(options)-1:# type: ignore
+                selection += 1
+            elif key == 10: # if the user presses enter then...
+                if selection == len(options)-1:#if the selected option is the last then...
+                    break
+                elif selection == 0:
+                    tipo=type(screen)  # we can call the function
+                    my_dictionary['pets'][indice]['tipo']=tipo
+                    with open('PetShopping.json', 'w') as archivo:
+                        json.dump(my_dictionary, archivo, indent=4)
+                    screen.getch()
+                elif selection == 1:
+                    raza=race(screen)
+                    my_dictionary['pets'][indice]['raza']=raza
+                    with open('PetShopping.json', 'w') as archivo:
+                        json.dump(my_dictionary, archivo, indent=4)
+                    screen.getch()
+                elif selection == 2:
+                    talla=size(screen)
+                    my_dictionary['pets'][indice]['talla']=talla
+                    with open('PetShopping.json', 'w') as archivo:
+                        json.dump(my_dictionary, archivo, indent=4)
+                    screen.getch()
+                elif selection == 3:
+                    precio=price(screen)
+                    my_dictionary['pets'][indice]['precio']=precio
+                    with open('PetShopping.json', 'w') as archivo:
+                        json.dump(my_dictionary, archivo, indent=4)
+                    screen.getch()
+                elif selection == 4:
+                    Services(screen)
+                    screen.getch()
         
         with open('PetShopping.json', 'w') as archivo:
             json.dump(my_dictionary, archivo, indent=4)
         
-        screen.addstr(len(my_dictionary['pets']) + 5, 0, "Mascota modificada correctamente.")
+        screen.addstr(len(my_dictionary['pets']) + 10, 0, "Mascota modificada correctamente.")
     else:
         screen.addstr(2, 0, "Índice inválido. Inténtelo nuevamente.")
     
