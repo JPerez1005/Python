@@ -1,23 +1,12 @@
 '''Elabore un programa Python para gestionar el CRUD del archivo de datos PetShopping.json con las siguientes funcionalidades:
-
-    a
 Mostrar en pantalla todas las mascotas a la venta visualizando: Tipo, Raza, Precio y Servicios
-
-    
 Crear Nueva mascota con la posibilidad de múltiples ítems de Servicio
-
-    
 Mostrar los datos de Mascotas por Tipo elegido visualizando: Raza, Precio y Servicios
-
-    
 Actualizar los datos de una mascota consultada por índice (Mostrar el listado total y elegir por     índice)
-
-    
 Eliminar una mascota de la tienda (Mostrar el listado total y elegir por índice)'''
 
 import curses
 import json
-
 
 def load_data():
     try:

@@ -1,0 +1,31 @@
+{
+    "animales": {
+        "dela_selva": [
+            {
+                "nombre": "tigre",
+                "tamaño": "mediano",
+                "habilidades": [
+                    "cazar",
+                    "trepa"
+                ]
+            },
+            {
+                "nombre": "pantera",
+                "tamaño": "mediano",
+                "habilidades": [
+                    "trepar"
+                ]
+            },
+            {
+                "nombre": "topo",
+                "tamaño": "pequeño",
+                "habilidades": [
+                    "cavar",
+                    "comer"
+                ]
+            }
+        ],
+        "del_mar": [],
+        "del_cielo": []
+    }
+}
