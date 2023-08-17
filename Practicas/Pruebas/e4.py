@@ -17,8 +17,16 @@ Eliminar una mascota de la tienda (Mostrar el listado total y elegir por índice
 
 import curses
 import json
-my_dictionary = {}
-my_dictionary['pets']=[]
+
+
+def load_data():
+    try:
+        with open("PetShopping.json", "r") as file:
+            my_dictionary = json.load(file)
+    except FileNotFoundError:
+        my_dictionary = {}
+        my_dictionary['pets']=[]
+    return my_dictionary
 
 def integer_validation(entrance, screen, f1, c1):
     curses.echo()# type: ignore | see on screen what is being typed
@@ -58,11 +66,19 @@ def add_pet(my_dictionary, screen):
     screen.addstr(3, 0, "Ingrese la raza de la mascota: ")
     raza = string_validation("", screen, 4, 0)
     
-    screen.addstr(5, 0, "Ingrese la talla de la mascota: ")
-    talla = string_validation("", screen, 6, 0)
+    screen.addstr(5, 0, "Ingrese la talla de la mascota: (1.pequeño) (2.mediano) (3.grande)")
+    talla = int(integer_validation("", screen, 6, 0))
+    if talla==1:
+        talla='pequeño'
+    elif talla==2:
+        talla='mediano'
+    elif talla==3:
+        talla='grande'
+    else:
+        screen.addstr(0, 0, "Opción inexistente...")
     
     screen.addstr(7, 0, "Ingrese el precio de la mascota: ")
-    precio = integer_validation("", screen, 8, 0)
+    precio = int(integer_validation("", screen, 8, 0))
     
     servicios = []  # Lista para almacenar servicios
     while True:
@@ -72,11 +88,11 @@ def add_pet(my_dictionary, screen):
         
         if servicio.isdigit():
             screen.addstr(10, 0, " "*100)
-            screen.addstr(12, 0, "No digite numeros")
+            screen.addstr(0, 0, "No digite numeros")
             screen.refresh()
         elif servicio:
             screen.addstr(10, 0, " "*100)
-            screen.addstr(12, 0, " "*18)
+            screen.addstr(0, 0, " "*18)
             servicios.append(servicio)
         else:
             break
@@ -93,7 +109,7 @@ def add_pet(my_dictionary, screen):
     with open('PetShopping.json', 'w') as archivo:
         json.dump(my_dictionary, archivo, indent=4)
     
-    screen.addstr(12, 0, "Mascota agregada correctamente")
+    screen.addstr(0, 0, "Mascota agregada correctamente")
     screen.refresh()
 
 def all_pets(my_dictionary, screen):
@@ -160,7 +176,6 @@ def show_for_types(my_dictionary, screen):
         screen.refresh()
         screen.getch()
 
-
 def modify_pet(my_dictionary, screen):
     screen.clear()
     screen.refresh()
@@ -190,7 +205,6 @@ def modify_pet(my_dictionary, screen):
     
     screen.getch()
 
-
 def delete_pet(my_dictionary, screen):
     screen.clear()
     screen.refresh()
@@ -198,60 +212,40 @@ def delete_pet(my_dictionary, screen):
         screen.addstr(2, 0, "No hay mascotas registradas para eliminar.")
         screen.getch()
         return
-    
-    screen.addstr(1, 0, "Ingrese el índice de la mascota a eliminar: ")
-    indice = integer_validation("", screen, 2, 0)
-    indice = int(indice)
-    
-    if 0 <= indice < len(my_dictionary['pets']):
-        pet = my_dictionary['pets'][indice]
+    while True:
+        screen.addstr(1, 0, "Ingrese el índice de la mascota a eliminar: ")
+        indice = integer_validation("", screen, 2, 0)
+        indice = int(indice)
         
-        # Aquí puedes mostrar los detalles de la mascota antes de confirmar la eliminación
-        screen.addstr(4, 0, f"¿Está seguro que desea eliminar la siguiente mascota?")
-        screen.addstr(5, 0, f"Tipo: {pet['tipo']}, Raza: {pet['raza']}, Precio: {pet['precio']}")
-        screen.addstr(6, 0, "Presione 'S' para confirmar la eliminación o cualquier otra tecla para cancelar.")
-        screen.refresh()
-        
-        key = screen.getch()
-        if key == ord('S') or key == ord('s'):
-            # Aquí puedes implementar la lógica para eliminar la mascota del diccionario
-            del my_dictionary['pets'][indice]
+        if 0 <= indice < len(my_dictionary['pets']):
+            pet = my_dictionary['pets'][indice]
             
-            with open('PetShopping.json', 'w') as archivo:
-                json.dump(my_dictionary, archivo, indent=4)
+            # Aquí puedes mostrar los detalles de la mascota antes de confirmar la eliminación
+            screen.addstr(4, 0, f"¿Está seguro que desea eliminar la siguiente mascota?")
+            screen.addstr(5, 0, f"Tipo: {pet['tipo']}, Raza: {pet['raza']}, Precio: {pet['precio']}")
+            screen.addstr(6, 0, "Presione 'S' para confirmar la eliminación o cualquier otra tecla para cancelar.")
+            screen.refresh()
             
-            screen.addstr(len(my_dictionary['pets']) + 5, 0, "Mascota eliminada correctamente.")
+            key = screen.getch()
+            if key == ord('S') or key == ord('s'):
+                # Aquí puedes implementar la lógica para eliminar la mascota del diccionario
+                del my_dictionary['pets'][indice]
+                
+                with open('PetShopping.json', 'w') as archivo:
+                    json.dump(my_dictionary, archivo, indent=4)
+                screen.clear()
+                screen.addstr(len(my_dictionary['pets']) + 5, 0, "Mascota eliminada correctamente.")
+            else:
+                screen.clear()
+                screen.addstr(8, 0, "Eliminación cancelada.")
         else:
-            screen.addstr(8, 0, "Eliminación cancelada.")
-    else:
-        screen.addstr(2, 0, "Índice inválido. Inténtelo nuevamente.")
+            screen.addstr(0, 0, "Índice inválido. Inténtelo nuevamente.")
+            screen.refresh()
     
     screen.getch()
 
-
-def function1(my_dictionary,screen):
-    #WE CAN CLEAR AND UPDATE THE SCREEN------------------------------------------
-    screen.clear()
-    screen.refresh()
-    screen.addstr(1, 0, "Ingrese el nombre completo del usuario: ")
-    screen.refresh()#actualizar pantalla
-    nombre = ""
-    entrance=string_validation(nombre, screen, 2, 0)
-    my_dictionary['nombre']=entrance
-
-def function2(my_dictionary,screen):
-    screen.clear()#limpiamos pantalla
-    screen.addstr(1, 0, "Ingrese el código del estudiante: ")#mostramos en pantalla
-    codigo = ""
-    entrance=integer_validation(codigo, screen, 2, 0)
-    my_dictionary['codigo']=entrance
-
-def function3(my_dictionary,screen):
-    screen.clear()#limpiamos pantalla
-    screen.addstr(1, 0, f'Nombre: {my_dictionary["nombre"]}')#show on screen
-    screen.addstr(2, 0, f'Codigos: {my_dictionary["codigo"]}')#show on screen
-
 def show_menu(screen):
+    my_dictionary=load_data()
     #CREATE A DICTIONARY---------------------------------------------------------
     #if a dictionary is used, this is the best time to call it
     
@@ -294,15 +288,15 @@ def show_menu(screen):
                 screen.getch()
             elif selection == 2:
                 show_for_types(my_dictionary,screen)
-                screen.addstr(len(options)+10, 0, "Presiona Enter para continuar...", curses.color_pair(2))# type: ignore
+                #screen.addstr(len(options)+10, 0, "Presiona Enter para continuar...", curses.color_pair(2))# type: ignore
                 screen.getch()
             elif selection == 3:
                 modify_pet(my_dictionary,screen)
-                screen.addstr(len(options)+10, 0, "Presiona Enter para continuar...", curses.color_pair(2))# type: ignore
+                #screen.addstr(len(options)+10, 0, "Presiona Enter para continuar...", curses.color_pair(2))# type: ignore
                 screen.getch()
             elif selection == 4:
                 delete_pet(my_dictionary,screen)
-                screen.addstr(len(options)+10, 0, "Presiona Enter para continuar...", curses.color_pair(2))# type: ignore
+                #screen.addstr(len(options)+10, 0, "Presiona Enter para continuar...", curses.color_pair(2))# type: ignore
                 screen.getch()
 
 curses.wrapper(show_menu)# type: ignore

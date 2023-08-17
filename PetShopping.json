@@ -1,11 +1,22 @@
 {
     "pets": [
         {
-            "tipo": "dfasdf",
-            "raza": "fdgfhg",
-            "talla": "ghfh",
-            "precio": "23434",
-            "servicios": []
+            "tipo": "Gato",
+            "raza": "siames",
+            "talla": "mediano",
+            "precio": "500000",
+            "servicios": [
+                "motel"
+            ]
+        },
+        {
+            "tipo": "perro",
+            "raza": "golden",
+            "talla": "grande",
+            "precio": 200000,
+            "servicios": [
+                "motel"
+            ]
         }
     ]
 }
